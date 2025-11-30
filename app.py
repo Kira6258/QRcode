@@ -13,7 +13,7 @@ from werkzeug.utils import secure_filename
 import cv2
 from werkzeug.security import generate_password_hash, check_password_hash #for password hashing
 from model import db, user, QRcodes #importing the database and models
-from config import config #importing the config file
+from config import Config #importing the config file
 from flask_login import LoginManager,login_user, logout_user,login_required,current_user
 import uuid #for unique file name for each qr saved 
 
@@ -24,7 +24,7 @@ def hex_to_rgb(value): #to change hex to rgb in colors
     return tuple(int(value[i:i+lv//3],16) for i in range(0,lv,lv//3)) # convert hex to rgb return it as a tuple it will divide into 3 r,g,b
 
 app=Flask(__name__) # create a new instance of the Flask class
-app.config.from_object(config)   # Load settings from config.py
+app.config.from_object(Config)   # Load settings from config.py
 
 db.init_app(app)
 
@@ -49,6 +49,7 @@ def index():
 
 #qr making
 @app.route('/generate', methods=['POST']) #to handle the POST request
+
 def generate():
     qr_type=request.form.get('type') #to get type from forms
 
@@ -124,14 +125,14 @@ def generate():
 
     img.save(file_path) # save qr image
 
-    new_qr=QRcodes(
-        data=data,
-        image_path=file_path,
-        user_id=current_user.id
-    )                             # add the info in db
-
-    db.session.add(new_qr) 
-    db.session.commit()
+    if current_user.is_authenticated:
+        new_qr = QRcodes(
+            data=data,
+            image_path=file_path,
+            user_id=current_user.id
+        )
+        db.session.add(new_qr)
+        db.session.commit()
 
     return render_template("index.html", qr_image='/'+file_path)
 
@@ -157,9 +158,7 @@ def decodeing():
 
 #Read image file from disk -> Try to detect QR -> If found, decode data -> Store decoded text
 
-#@login_manager.user_loader
-#def login_user(user_id):
-  #  return user.query.get(int(user_id))
+
 
 #for login
 @app.route("/login", methods=['POST','GET'])
@@ -190,7 +189,7 @@ def logout():
 
 
 #for signup
-app.secret_key="secret"
+
 @app.route("/signup", methods=['POST','GET'])
 def signup():
     if request.method=='POST':

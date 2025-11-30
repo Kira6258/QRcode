@@ -1,6 +1,8 @@
 import os
 
-class config:
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:Kiranesh18%40@localhost/qr_app"
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+class Config:
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(BASE_DIR, 'history.db')}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = "secret"
+    SECRET_KEY = "secret123"

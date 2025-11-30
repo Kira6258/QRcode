@@ -8,18 +8,45 @@
 
 body {
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
     background: linear-gradient(135deg, #2b2b2b, #1a1a1a);
     padding: 20px;
+    position: relative;
 }
 
+.login-nav {
+    position: absolute; 
+    top: 20px;
+    left: 20px;
+    background: transparent;
+    z-index: 1000;
+}
+
+.login-nav .logo {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.login-nav .logo:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+}
+
+.login-nav .logo img {
+    height: 35px;
+    width: auto;
+}
 
 .login-wrapper {
     width: 100%;
-    max-width: 420px;
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
 
 .login-card {
@@ -27,7 +54,7 @@ body {
     padding: 2.5rem 2.2rem;
     border-radius: 18px;
     backdrop-filter: blur(12px);
-
+    width: 500px;
     box-shadow: 0 8px 35px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.5s ease;
 }
