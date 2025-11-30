@@ -2,7 +2,6 @@
 A full-stack QR Code Generator built using **Python, Flask, HTML, CSS, JavaScript, and SQL (History Database)**.  
 This app allows users to generate QR codes for **Text, URLs, and Contact Information**, save them, download them, and view their previously generated QR history.
 
----
 
 ## 🚀 Features
 
