@@ -121,8 +121,10 @@ def generate():
     #embeded_image_path = put a logo at the center
 
     filename=f"{uuid.uuid4().hex}.png"  #generate unique name
-    file_path=os.path.join('static/qrs',filename)
+    qr_folder = os.path.join('static', 'qrs')
+    os.makedirs(qr_folder, exist_ok=True)
 
+    file_path = os.path.join(qr_folder, filename)
     img.save(file_path) # save qr image
 
     if current_user.is_authenticated:

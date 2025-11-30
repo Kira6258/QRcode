@@ -18,9 +18,15 @@
         <div class="login-card">
             <h2>Login</h2>
             
-            {% if error %}
-            <div class="error-box">{{ error }}</div>
-            {% endif %}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="error-box">
+                    {% for msg in messages %}
+                        <p>{{ msg }}</p>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
 
             <form action="/login" method="post">
                 
