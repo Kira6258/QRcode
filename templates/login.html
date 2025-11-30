@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_style.css') }}">
+    <title>Login</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}?v=2">
+</head>
+<body>
+    
+    <div class="login-wrapper">
+
+        <div class="login-card">
+            <h2>Login</h2>
+            
+            {% if error %}
+            <div class="error-box">{{ error }}</div>
+            {% endif %}
+
+            <form action="/login" method="post">
+                
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter username" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                </div>
+
+                <button type="submit" class="btn">Login</button>
+
+            </form>
+
+            <p class="signup-text">
+                New user? <a href="/signup">Create an account</a>
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>

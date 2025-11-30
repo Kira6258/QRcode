@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashstyle.css')}}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}?v=2">
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2 class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="PixelToLink Logo" style="height: 40px;">
+        </h2>
+
+        <ul class="menu">
+            <li><a href="/">🏠 Home</a></li>
+            <li><a href="{{ url_for('index') }}">✨ Generate QR</a></li>
+            <li><a href="{{ url_for('logout') }}">🚪 Logout</a></li>
+        </ul>
+
+        <button id="theme-switch" title="theme" onclick="change()">
+            <span class="theme-text">🌙 Dark Mode</span>
+        </button>
+    </div>
+
+    <div class="main">
+
+        <header class="profile-header">
+            <img class="avatar" src="https://ui-avatars.com/api/?name={{ current_user.username }}&background=4b6ef5&color=fff">
+            <div>
+                <h2>Hello, {{ current_user.username }}</h2>
+                <p>Welcome back 👋</p>
+            </div>
+        </header>
+
+        <section class="history-section">
+            <h3>Your QR History</h3>
+
+            {% if qrs %}
+            <div class="qr-grid">
+
+                {% for qr in qrs %}
+                <div class="qr-card">
+                    <img src="{{ '/' + qr.image_path }}" alt="QR">
+
+                    <p class="qr-text"><b>Data:</b> {{ qr.data }}</p>
+
+                    <div class="qr-actions">
+                        <a href="{{ '/' + qr.image_path }}" download>Download</a>
+
+                        <form action="{{ url_for('delete_qr', id=qr.id) }}" method="POST">
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+                <p class="no">No QR codes generated yet!</p>
+            {% endif %}
+        </section>
+
+        <footer>
+            <p>© 2025 PixelToLink. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js')}}"></script>
+    <script>
+        function change(){
+            const button = document.getElementById("theme-switch");
+            const span = button.querySelector(".theme-text");
+            document.body.classList.toggle("darktheme");
+
+            if (document.body.classList.contains("darktheme")) {
+                span.textContent = "☀️ Light Mode";
+            } else {
+                span.textContent = "🌙 Dark Mode";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://unpkg.com/qr-code-styling/lib/qr-code-styling.js"></script>
+    <title>QR code generator</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}?v=2">
+</head>
+<body>
+    
+
+    <nav>
+        <button class="logo" type="button" onclick="window.location.href='/'">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="PixelToLink Logo" style="height: 40px;">
+        </button>
+        <div class="menu">
+            <button type="button" class="nav" type-page="home">Home</button>    
+            <button type="button" class="nav" type-page="code">QR code</button>
+            <button type="button" class="nav" type-page="decode">Decode</button>
+        </div>
+        <div class="use">
+            {% if current_user.is_authenticated %}
+                <button type="button" class="nav"><a href="{{ url_for('dashboard' )}}">Dashboard</a></button>
+                <button type="button" class="nav"><a href="{{ url_for('logout') }}">Logout</a></button>
+            {% else %}
+                <button type="button" class="nav"><a href="{{ url_for('login') }}">Login</a></button>
+                <button type="button" class="nav"><a href="{{ url_for('signup') }}">Signup</a></button>
+            {% endif %}
+        </div>
+        <button id="theme-switch" title="theme">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg>
+        </button>
+    </nav>
+    <div class="home" style="display:none;">
+  
+        <section class="hero">
+            <h1>Generate QR Codes Instantly with <span>QRify</span></h1>
+            <p>Create beautiful, scannable QR codes for links, text, Wi-Fi, contacts, and more — fast, simple, and customizable.</p>
+        </section>
+
+        <section class="features">
+            <h2>Why Choose QRify?</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>⚡ Fast & Simple</h3>
+                    <p>Generate QR codes in seconds — no confusing steps.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎨 Customizable</h3>
+                    <p>Choose colors, shapes, and styles that match your brand.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📱 Multiple Types</h3>
+                    <p>URLs, text, Wi-Fi, email, contact details & more.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⬇ Download & Share</h3>
+                    <p>Export as PNG or SVG — ready for printing or digital use.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <span>1</span>
+                    <p>Enter the data you want to convert.</p>
+                </div>
+                <div class="step">
+                    <span>2</span>
+                    <p>Customize colors & style (optional).</p>
+                </div>
+                <div class="step">
+                    <span>3</span>
+                    <p>Generate and download your QR Code.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="use-cases">
+            <h2>Perfect For</h2>
+            <ul>
+                <li>📌 Business websites & portfolios</li>
+                <li>🍽️ Menus, flyers, posters & brochures</li>
+                <li>📶 Wi-Fi access sharing</li>
+                <li>📇 Contact cards, events, & promotions</li>
+            </ul>
+        </section>
+
+        <section class="cta">
+            <h2>Get Started</h2>
+            <p>No sign-up required for one-time QR generation. Sign up only if you want to save your history!</p>
+        </section>
+
+    </div>
+
+    <div class="layout" >
+        <div class="form-layout">
+            <h2 id="typewriter"></h2>
+            <form class="form" action="/generate" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="type" id="selected-type" value="text">
+                <div class="type-buttons">
+                    <button type="button" class="type-options selected" data-type="text">
+                        <img src="{{ url_for('static', filename='images/text.png') }}" alt="text">
+                        <span>Text</span>
+                    </button>
+                    <button type="button" class="type-options" data-type="url">
+                        <img src="{{ url_for('static', filename='images/icons8-link-50.png') }}" alt="url">
+                        <span>URL</span>
+                    </button>
+                    <button type="button" class="type-options" data-type="contact_info">
+                        <img src="{{ url_for('static', filename='images/icons8-contact-48.png') }}" alt="contact">
+                        <span>contact_info</span>
+                    </button>
+                    <button type="button" class="type-options" data-type="email">
+                        <img src="{{ url_for('static', filename='images/icons8-email-50.png')}}" alt="email">
+                        <span>Email</span>
+                    </button>
+                </div>
+                
+                <div class="contact" style="display: none;">
+                    <p>Step 1:enter your contact details</p>
+                    <input type="text" name="name" placeholder="name">
+                    <input  type="email" name="email" placeholder="Email">
+                    <input type="number" name="number" placeholder="phone number">
+                </div>
+
+                <br>
+                <div class="input-text" >
+                    <label for="date">STEP 1:Enter your TEXT here:</label>
+                    <input type="text" name="data" placeholder="Enter the data here">
+                </div>
+
+                <div class="input-url" style="display: none;">
+                    <label for="date">STEP 1:Enter your URL here:</label>
+                    <input type="text" name="data" placeholder="Enter the data here">
+                </div>
+
+                <div class="input-email" style="display: none;">
+                    <label for="date">STEP 1:Enter your Email here:</label>
+                    <input type="text" name="data" placeholder="Enter the data here">
+                </div>
+                <br>
+                <label for="style">STEP 2: QR style:</label>
+                <div class="color-picker">
+                    
+                    
+                    <select name="style">
+                        <option value="square">Square</option>
+                        <option value="circle">Circle</option>
+                        <option value="rounded">Rounded</option>
+                    </select>
+                    <br>
+                    <label for="fg-color">Foreground:</label>
+                    <input type="color" name="fg-color" value="#000000">
+                    
+                    <label for="bg-color">Background:</label>
+                    <input type="color" name="bg-color" value="#ffffff">
+
+                </div>
+                <br>
+                <label for="logo">Upload Logo (optional):</label>
+                <input type="file" name="logo" accept="image/png, image/jpeg">
+                <br><br>
+                <button type="submit">generate</button>
+            </form>
+        </div>
+        {% if qr_image %}
+            <h3>YOUR QR CODE :</h3>
+            <div class="qr_card">
+                <div  class="qr_inner">
+                    <div class="qr_front">
+                        <img src="{{ qr_image }}" alt="qr code">
+                    </div>
+                    <div class="qr_back">
+                        <p>Scan me!</p>
+                    </div>
+                </div>
+                <div class="tooltip-container">
+                    <a href="{{ qr_image }}" download="my_qr_code.png" class="download">
+                        Download
+                    </a>
+                    <span class="tooltip-text">click to download</span>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if qr_image %}
+            <div class="toast">QR Code generated successfully!</div>
+        {% endif %}
+    </div>
+    <div class="decode" style="display: none;">
+        <div class="form-decode">
+            <h2>DECODE THE QR/BARCODES</h2>
+            <form action="/decode" method="post" enctype="multipart/form-data" >
+                
+                <label for="input-qr">QR FILE</label>
+                <input type="file" name="input-qr" accept="image/png , image/jpeg">
+
+                <br><br><br>
+
+                <button type="submit">Decode</button>
+            </form>
+        </div>
+        
+        <div class="decode-data">
+            <h3>the decoded data</h3>
+            {% if decode_data %}
+                
+                <ul>
+                    {% for data in decode_data %}
+                        <li>{{data}}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+            
+
+    </div>
+    
+    
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+
+</body>
+</html>

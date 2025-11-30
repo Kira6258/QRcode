@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}?v=2">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+</head>
+<body>
+    
+    <div class="signup-wrapper">
+
+        <div class="signup-card">
+            <h2>Create Your Account</h2>
+
+            {% if message %}
+            <div class="error-box">{{ message }}</div>
+            {% endif %}
+
+            <form action="/signup" method="POST">
+
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        placeholder="Enter your username" 
+                        required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Enter your password" 
+                        required>
+                </div>
+
+                <div class="input-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input 
+                        type="password" 
+                        id="confirm_password" 
+                        name="confirm_password" 
+                        placeholder="Confirm your password" 
+                        required>
+                </div>
+
+                <button type="submit" class="btn">Sign Up</button>
+
+            </form>
+
+            <p class="login-text">
+                Already have an account? 
+                <a href="{{ url_for('login') }}">Login here</a>
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>
