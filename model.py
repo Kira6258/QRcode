@@ -1,4 +1,4 @@
-from flask import Flask
+
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 
@@ -15,7 +15,7 @@ class user(db.Model,UserMixin):
 class QRcodes(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     data=db.Column(db.Text,nullable=False)
-    image_path=db.Column(db.String(100))
+    image_path=db.Column(db.String(500),nullable=False)
     user_id=db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
 
 
