@@ -1,6 +1,5 @@
 #comments for your understanding of the code
-
-from flask import Flask, flash, redirect, render_template, request, url_for #flask is for deployment of a website
+from flask import Flask, flash, redirect, render_template, request, url_for,send_from_directory #flask is for deployment of a website
 import qrcode #for generating qr code
 import qrcode.constants
 from qrcode.image.styledpil import StyledPilImage #custom styling
@@ -239,6 +238,22 @@ def delete_qr(id):
     db.session.commit()
 
     return redirect(url_for('dashboard'))
+
+
+
+# Serve robots.txt
+@app.route('/robots.txt')
+def robots_txt():
+    return send_from_directory(os.path.join(app.root_path),
+                               'robots.txt',
+                               mimetype='text/plain')
+
+# Serve sitemap.xml
+@app.route('/sitemap.xml')
+def sitemap_xml():
+    return send_from_directory(os.path.join(app.root_path),
+                               'sitemap.xml',
+                               mimetype='application/xml')
 
 
 if __name__ == '__main__':
