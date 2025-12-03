@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XHFCSRXNLC"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-XHFCSRXNLC');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -9,7 +20,35 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}?v=2">
     <meta name="google-site-verification" content="luVs3PDi5nNC00IWv_9TgZyyiXUke3e_SJ1ZF9UFj00" />
     <meta name="google-site-verification" content="-9eW1SE3FQNRdtXQL1X1KspiJlEtW1AUBvvuRt0P4RM" />
+
+    <title>PixelToLink - Free QR Code Generator & Scanner</title>
+    <meta name="description" content="Create and scan QR codes instantly with PixelToLink. Free QR code generator, QR decoder, and QR history all in one place. No signup needed!">
+    <meta name="keywords" content="QR code generator, QR scanner, online QR decoder, make QR code free, scan QR code online, QR history">
+    <meta name="author" content="PixelToLink">
+
+    <meta property="og:title" content="PixelToLink - Free QR Code Generator & Scanner">
+    <meta property="og:description" content="Create and scan QR codes instantly. Fast, free, and secure QR tools.">
+    <meta property="og:url" content="https://pixeltolink.site">
+    <meta property="og:type" content="website">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PixelToLink",
+        "url": "https://pixeltolink.site",
+        "description": "Free online QR code generator and QR decoder with history tracking.",
+        "applicationCategory": "Utility",
+        "operatingSystem": "All",
+        "creator": {
+            "@type": "Person",
+            "name": "Kiranesh"
+        }
+    }
+    </script>
+
 </head>
+
 <body>
     
 
@@ -37,7 +76,8 @@
         </button>
     </nav>
     <div class="home" style="display:none;">
-  
+        <h1>Free QR Code Generator & QR Scanner - PixelToLink</h1>
+
         <section class="hero">
             <h1>Generate QR Codes Instantly with <span>QRify</span></h1>
             <p>Create beautiful, scannable QR codes for links, text, Wi-Fi, contacts, and more — fast, simple, and customizable.</p>
@@ -229,6 +269,6 @@
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-
+    <footer><p>PixelToLink is a free online tool to generate QR codes and scan QR codes instantly. Create QR codes for text, URLs, WiFi, contacts, and more. No account required — fast, secure, and easy to use.</p></footer>
 </body>
 </html>
