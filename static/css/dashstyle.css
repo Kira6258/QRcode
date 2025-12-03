@@ -217,3 +217,121 @@ footer {
     text-align: center;
     color: var(--subtext);
 }
+
+
+@media (max-width: 1024px) {
+    body {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 20px var(--shadow);
+        gap: 20px;
+    }
+    
+    .menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .main {
+        padding: 30px 20px;
+    }
+    
+    #theme-switch {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+    
+    .logo {
+        font-size: 24px;
+    }
+    
+    .menu {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .menu li a {
+        display: block;
+        padding: 12px;
+        margin: 5px 0;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .avatar {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .history-section {
+        padding: 20px 15px;
+    }
+    
+    .qr-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .qr-card {
+        padding: 15px;
+    }
+    
+    .qr-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .qr-actions a,
+    .delete-btn {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+    
+    footer {
+        margin-top: 25px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .main {
+        padding: 20px 15px;
+    }
+    
+    .history-section h3 {
+        font-size: 18px;
+        text-align: center;
+    }
+    
+    .qr-card {
+        padding: 12px;
+    }
+    
+    .qr-text {
+        font-size: 0.85rem;
+    }
+}

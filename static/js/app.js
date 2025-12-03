@@ -197,3 +197,50 @@ document.addEventListener("DOMContentLoaded",function(){
 
 })
 
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.createElement('button');
+    hamburger.className = 'hamburger';
+    hamburger.innerHTML = '<span></span><span></span><span></span>';
+    
+    const nav = document.querySelector('nav');
+    const menu = document.querySelector('.menu');
+    
+    if (nav && menu) {
+        
+        if (window.innerWidth <= 768) {
+            nav.insertBefore(hamburger, menu);
+            
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('active');
+                menu.classList.toggle('active');
+                document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+            });
+            
+            menu.querySelectorAll('button, a').forEach(item => {
+                item.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    menu.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            });
+        }
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!nav.contains(event.target) && menu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                menu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && menu) {
+            menu.classList.remove('active');
+            if (hamburger) hamburger.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+});

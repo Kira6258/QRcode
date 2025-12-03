@@ -160,3 +160,100 @@ body {
         transform: translateY(0);
     }
 }
+
+@media (max-width: 1024px) {
+    .login-wrapper {
+        padding: 20px;
+    }
+    
+    .login-card {
+        width: 450px;
+        padding: 2rem 1.8rem;
+    }
+}
+
+
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+    
+    .login-nav {
+        top: 15px;
+        left: 15px;
+    }
+    
+    .login-nav .logo img {
+        height: 30px;
+    }
+    
+    .login-card {
+        width: 90%;
+        max-width: 400px;
+        padding: 1.8rem 1.5rem;
+        margin: 20px 0;
+    }
+    
+    .login-card h2 {
+        font-size: 1.7rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .input-group {
+        margin-bottom: 1rem;
+    }
+    
+    .input-group input {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.95rem;
+    }
+    
+    .btn {
+        padding: 0.7rem;
+        font-size: 1rem;
+    }
+    
+    .signup-text {
+        font-size: 0.9rem;
+        margin-top: 1rem;
+    }
+}
+
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .login-card {
+        width: 95%;
+        padding: 1.5rem 1.2rem;
+    }
+    
+    .login-card h2 {
+        font-size: 1.5rem;
+    }
+    
+    .input-group label {
+        font-size: 0.9rem;
+    }
+    
+    .input-group input {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .btn {
+        padding: 0.6rem;
+        font-size: 0.95rem;
+    }
+    
+    .error-box {
+        font-size: 0.9rem;
+        padding: 0.7rem 0.9rem;
+    }
+    
+    .signup-text {
+        font-size: 0.85rem;
+    }
+}
